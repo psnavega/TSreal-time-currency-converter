@@ -1,8 +1,12 @@
 import {Router} from 'express';
-import {getCoins} from '../controllers/CurrencyController';
+import {getCurrencies, getCurrency, postCurrency, deleteCurrency, patchCurrency} from '../controllers/CurrencyController';
 
 const routes = Router();
 
-routes.get('/', getCoins);
+routes.get('/currency/:id', getCurrency);
+routes.get('/currency', getCurrencies);
+routes.post('/currency/', postCurrency);
+routes.delete('/currency/:id', deleteCurrency);
+routes.patch('/currency/:id', patchCurrency);
 
 export default routes;

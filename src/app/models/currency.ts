@@ -1,7 +1,7 @@
 import type {Document} from 'mongoose';
 import {Schema, model} from 'mongoose';
 
-type CurrencyInterface = {
+type CurrencyType = {
 	name: string;
 	code: string;
 	rate: number;
@@ -28,4 +28,4 @@ const currencySchema = new Schema({
 },
 );
 
-export default model<CurrencyInterface>('Currency', currencySchema);
+export default model<CurrencyType>('Currency', currencySchema);
