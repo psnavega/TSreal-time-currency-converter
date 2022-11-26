@@ -27,32 +27,22 @@ async function getCurrency(req: Request, res: Response): Promise<Response> {
 }
 
 async function postCurrency(req: Request, res: Response): Promise<Response> {
-	const data = {
-		name: req.body.name,
-		code: req.body.code,
-		fiatOrFic: req.body.fiatOrFic,
-		rate: req.body.rate,
-	};
+	const {body}: {body: CurrencyType} = req;
 
-	await postCurrencyService({data});
+	await postCurrencyService({body});
 
 	return res.status(201).send({
 		message: 'User created successfully',
-		data,
+		body,
 	});
 }
 
 async function patchCurrency(req: Request, res: Response): Promise<Response> {
 	const {id} = req.params;
 
-	const data: CurrencyType = {
-		name: req.body.name,
-		code: req.body.code,
-		rate: req.body.rate,
-		fiatOrFic: req.body.fiatOrFic,
-	};
+	const {body}: {body: CurrencyType} = req;
 
-	const response = await patchCurrencyService({id, data});
+	const response = await patchCurrencyService({id, body});
 
 	if (!response) {
 		return res.status(400).send({message: 'No register found to update'});
@@ -60,7 +50,7 @@ async function patchCurrency(req: Request, res: Response): Promise<Response> {
 
 	return res.status(200).send({
 		message: 'Update successfully',
-		data,
+		body,
 	});
 }
 

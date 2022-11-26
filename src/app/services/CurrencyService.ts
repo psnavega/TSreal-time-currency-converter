@@ -17,12 +17,12 @@ async function getCurrencyService({id}: {id: string}): Promise<CurrencyType> {
 
 async function postCurrencyService(
 	{
-		data,
+		body,
 	}:
 	{
-		data: CurrencyType;
+		body: CurrencyType;
 	}): Promise<CurrencyType> {
-	return saveCurrency({data});
+	return saveCurrency({body});
 }
 
 async function deleteCurrencyService({id}: {id: string}): Promise<CurrencyType> {
@@ -32,13 +32,13 @@ async function deleteCurrencyService({id}: {id: string}): Promise<CurrencyType> 
 async function patchCurrencyService(
 	{
 		id,
-		data,
+		body,
 	}: {
 		id: string;
-		data: CurrencyType;
+		body: CurrencyType;
 	},
 ): Promise<CurrencyType> {
-	return updateCurrency({id, data});
+	return updateCurrency({id, body});
 }
 
 export {

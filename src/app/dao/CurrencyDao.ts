@@ -13,12 +13,12 @@ async function listCurrency({id}: {id: string}): Promise<CurrencyType> {
 	return response;
 }
 
-async function saveCurrency({data}: {data: CurrencyType}): Promise<CurrencyType> {
+async function saveCurrency({body}: {body: CurrencyType}): Promise<CurrencyType> {
 	const newData = new CurrencyModel({
-		name: data.name,
-		code: data.code,
-		rate: data.rate,
-		fiatOrFic: data.fiatOrFic,
+		name: body.name,
+		code: body.code,
+		rate: body.rate,
+		fiatOrFic: body.fiatOrFic,
 	});
 
 	const response = await newData.save();
@@ -34,12 +34,12 @@ async function removeCurrency({id}: {id: string}): Promise<CurrencyType> {
 
 async function updateCurrency({
 	id,
-	data,
+	body,
 }: {
 	id: string;
-	data: CurrencyType;
+	body: CurrencyType;
 }): Promise<CurrencyType> {
-	const response = CurrencyModel.findByIdAndUpdate(id, data);
+	const response = CurrencyModel.findByIdAndUpdate(id, body);
 
 	return response;
 }
