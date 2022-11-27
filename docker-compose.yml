@@ -8,6 +8,18 @@ services:
       - data:/data/db
     ports:
       - 27018:27017
+    networks:
+      - my-network
+
+  redis:
+    container_name: redis
+    image: redis:4.0.6
+    ports:
+      - 6379:6379
+    links:
+      - mongodb
+    networks:
+      - my-network
   
   currency:
     build: .
@@ -18,10 +30,16 @@ services:
       - 3000:3000
     environment:
       PORT: 3000
+    depends_on:
+      - redis
+      - mongodb
     links:
       - mongodb
-    depends_on:
-      - mongodb
+      - redis
+    networks:
+      - my-network
 
 volumes:
   data: {}
+networks:
+  my-network:
