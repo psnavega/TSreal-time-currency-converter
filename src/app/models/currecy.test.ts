@@ -7,13 +7,13 @@ describe('Test properties', () => {
 			name: 'PokeCoin',
 			code: 'PKC',
 			rate: 17.5,
-			fiatOrFic: false,
+			fiat: false,
 		};
 
 		expect(currencyMock.name).toEqual('PokeCoin');
 		expect(currencyMock.code).toEqual('PKC');
 		expect(currencyMock.rate).toEqual(17.5);
-		expect(currencyMock.fiatOrFic).toEqual(false);
+		expect(currencyMock.fiat).toEqual(false);
 	},
 	);
 });

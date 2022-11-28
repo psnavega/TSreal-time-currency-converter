@@ -5,7 +5,7 @@ type CurrencyType = {
 	name: string;
 	code: string;
 	rate: number;
-	fiatOrFic: boolean;
+	fiat: boolean;
 } & Document;
 
 const currencySchema = new Schema({
@@ -18,7 +18,7 @@ const currencySchema = new Schema({
 	rate: {
 		type: Number,
 	},
-	fiatOrFic: {
+	fiat: {
 		type: Boolean,
 
 	},

@@ -3,7 +3,7 @@ import {getCurrencies, getCurrency, postCurrency, deleteCurrency, patchCurrency}
 
 const routes = Router();
 
-routes.get('/currency/:id', getCurrency);
+routes.get('/currency/:code', getCurrency);
 routes.get('/currency', getCurrencies);
 routes.post('/currency/', postCurrency);
 routes.delete('/currency/:id', deleteCurrency);

@@ -18,7 +18,7 @@ async function getCurrencies(req: Request, res: Response): Promise<Response> {
 			const response = await getCurrenciesService();
 
 			await client.set('getCurrencies', JSON.stringify(response));
-			await client.expire('getCurrencies', 20);
+			await client.expire('getCurrencies', 10);
 
 			return res.status(200).send({response});
 		}
@@ -34,15 +34,20 @@ async function getCurrencies(req: Request, res: Response): Promise<Response> {
 
 async function getCurrency(req: Request, res: Response): Promise<Response> {
 	try {
-		const {id} = req.params;
+		const {code} = req.params;
 
-		const response = await getCurrencyService({id});
+		const response = await client.get(`${code}`);
 
 		if (!response) {
-			return res.status(400).send({message: 'No users registered'});
+			const response = await getCurrencyService({code});
+
+			await client.set(`${code}`, JSON.stringify(response));
+			await client.expire(`${code}`, 10);
+
+			return res.status(200).send({response});
 		}
 
-		return res.status(200).send(response);
+		return res.status(200).send({response});
 	} catch (e: unknown) {
 		return res.status(409).send({
 			message: 'Error',

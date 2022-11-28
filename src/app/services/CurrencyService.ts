@@ -11,8 +11,8 @@ async function getCurrenciesService(): Promise<CurrencyType[]> {
 	return listCurrencies();
 }
 
-async function getCurrencyService({id}: {id: string}): Promise<CurrencyType> {
-	return listCurrency({id});
+async function getCurrencyService({code}: {code: string}): Promise<CurrencyType> {
+	return listCurrency({code});
 }
 
 async function postCurrencyService(

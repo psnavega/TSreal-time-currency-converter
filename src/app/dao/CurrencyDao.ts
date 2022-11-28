@@ -7,8 +7,8 @@ async function listCurrencies(): Promise<CurrencyType[]> {
 	return response;
 }
 
-async function listCurrency({id}: {id: string}): Promise<CurrencyType> {
-	const response: CurrencyType = await CurrencyModel.findById(id);
+async function listCurrency({code}: {code: string}): Promise<CurrencyType> {
+	const response: CurrencyType = await CurrencyModel.findOne({code});
 
 	return response;
 }
@@ -18,7 +18,7 @@ async function saveCurrency({body}: {body: CurrencyType}): Promise<CurrencyType>
 		name: body.name,
 		code: body.code,
 		rate: body.rate,
-		fiatOrFic: body.fiatOrFic,
+		fiat: body.fiat,
 	});
 
 	const response = await newData.save();
