@@ -4,8 +4,8 @@ export type CurrencyType = {
 	_id?: ObjectId;
 	name: string;
 	code: string;
-	rate: number;
-	fiat: boolean;
+	rate?: number;
+	fiat?: boolean;
 };
 
 export type EconomyType = {

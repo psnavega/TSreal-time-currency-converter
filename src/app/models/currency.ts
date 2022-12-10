@@ -14,6 +14,7 @@ const currencySchema = new Schema({
 	},
 	code: {
 		type: String,
+		require: true,
 	},
 	rate: {
 		type: Number,

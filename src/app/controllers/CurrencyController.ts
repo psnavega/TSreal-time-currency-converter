@@ -41,7 +41,12 @@ async function getCurrency(req: Request, res: Response): Promise<Response> {
 		if (!response) {
 			const response = await getCurrencyService({code});
 
-			await client.set(`${code}`, JSON.stringify(response));
+			await client.set(
+				`${code}`,
+				JSON.stringify(
+					response,
+				),
+			);
 			await client.expire(`${code}`, 10);
 
 			return res.status(200).send({response});
