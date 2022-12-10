@@ -1,15 +1,11 @@
-FROM node:16.14.2
+FROM node:14-alpine
 
-ARG PORT_BUILD=3000
+WORKDIR /src
 
-WORKDIR /usr/app
+ADD package.json /src 
 
-COPY . .
+RUN yarn install 
 
-RUN yarn install
+ADD . /src 
 
-EXPOSE ${PORT_BUILD}
-
-ENV PORT = ${PORT_BUILD}
-
-CMD [ "yarn", "start"] 
+CMD npm dev

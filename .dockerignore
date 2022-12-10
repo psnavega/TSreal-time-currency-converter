@@ -3,3 +3,4 @@ Dockerfile
 coverage
 node_modules
 dist
+docker-compose.yml
