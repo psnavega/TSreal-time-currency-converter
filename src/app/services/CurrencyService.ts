@@ -6,7 +6,7 @@ import {
 	removeCurrency,
 } from '../dao/CurrencyDao';
 import type {CurrencyType} from '../types/CurrencyType';
-import {getAPI} from '../util/currency';
+import {updateValues} from '../util/updateValue';
 
 async function getCurrenciesService(): Promise<CurrencyType[]> {
 	return listCurrencies();
@@ -42,12 +42,6 @@ async function patchCurrencyService(
 	},
 ): Promise<any> {
 	return updateCurrency({code, body});
-}
-
-async function updateValues({code}: {code: string}): Promise<void> {
-	const body = await getAPI({code});
-
-	await patchCurrencyService({code, body});
 }
 
 export {

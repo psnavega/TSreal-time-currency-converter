@@ -1,7 +1,8 @@
 import {
 	listCurrency,
 } from '../dao/CurrencyDao';
-import type {ConversionType, CurrencyType} from '../types/CurrencyType';
+import type {ConversionType} from '../types/CurrencyType';
+import {updateValues} from '../util/updateValue';
 
 export async function conversion({data}: {data: ConversionType}): Promise<ConversionType> {
 	const dataRateFrom = await callRateFromDatabase({code: data.from});
@@ -22,8 +23,9 @@ export async function conversion({data}: {data: ConversionType}): Promise<Conver
 }
 
 async function callRateFromDatabase({code}: {code: string}): Promise<number> {
+	await updateValues({code});
+
 	const data = await listCurrency({code});
-	console.log(data);
 	return data.rate;
 }
 
