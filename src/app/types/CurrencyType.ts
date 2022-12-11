@@ -5,7 +5,7 @@ export type CurrencyType = {
 	name: string;
 	code: string;
 	rate?: number;
-	fiat?: boolean;
+	fiat: boolean;
 };
 
 export type EconomyType = {
@@ -19,4 +19,10 @@ export type EconomyType = {
 	ask: string;
 	timestamp: string;
 	create_date: string;
+};
+
+export type ConversionType = {
+	from: string;
+	to: string;
+	amount: number | string;
 };
