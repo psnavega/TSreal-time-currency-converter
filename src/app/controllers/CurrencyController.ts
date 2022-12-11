@@ -20,10 +20,10 @@ async function getCurrencies(req: Request, res: Response): Promise<Response> {
 			await client.set('getCurrencies', JSON.stringify(response));
 			await client.expire('getCurrencies', 10);
 
-			return res.status(200).send({response});
+			return res.status(200).json({response});
 		}
 
-		return res.status(200).send({response});
+		return res.status(200).send(response);
 	} catch (e: unknown) {
 		return res.status(409).send({
 			message: 'Error',
@@ -49,10 +49,10 @@ async function getCurrency(req: Request, res: Response): Promise<Response> {
 			);
 			await client.expire(`${code}`, 10);
 
-			return res.status(200).send({response});
+			return res.status(200).send(response);
 		}
 
-		return res.status(200).send({response});
+		return res.status(200).send(response);
 	} catch (e: unknown) {
 		return res.status(409).send({
 			message: 'Error',
@@ -68,7 +68,7 @@ async function postCurrency(req: Request, res: Response): Promise<Response> {
 		await postCurrencyService({body});
 
 		return res.status(201).send({
-			message: 'User created successfully',
+			message: 'Currency created successfully',
 			body,
 		});
 	} catch (e: unknown) {
@@ -81,11 +81,11 @@ async function postCurrency(req: Request, res: Response): Promise<Response> {
 
 async function patchCurrency(req: Request, res: Response): Promise<Response> {
 	try {
-		const {id} = req.params;
+		const {code} = req.params;
 
 		const {body}: {body: CurrencyType} = req;
 
-		const response = await patchCurrencyService({id, body});
+		const response = await patchCurrencyService({code, body});
 
 		if (!response) {
 			return res.status(400).send({message: 'No register found to update'});
@@ -105,9 +105,9 @@ async function patchCurrency(req: Request, res: Response): Promise<Response> {
 
 async function deleteCurrency(req: Request, res: Response): Promise<Response> {
 	try {
-		const {id} = req.params;
+		const {code} = req.params;
 
-		const response = await deleteCurrencyService({id});
+		const response = await deleteCurrencyService({code});
 
 		if (!response) {
 			return res.status(400).send({message: 'No register found to delete'});

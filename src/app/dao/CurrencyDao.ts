@@ -26,20 +26,20 @@ async function saveCurrency({body}: {body: CurrencyType}): Promise<CurrencyType>
 	return response;
 }
 
-async function removeCurrency({id}: {id: string}): Promise<CurrencyType> {
-	const response = CurrencyModel.findByIdAndDelete(id);
+async function removeCurrency({code}: {code: string}): Promise<CurrencyType> {
+	const response = CurrencyModel.findOneAndDelete({code});
 
 	return response;
 }
 
 async function updateCurrency({
-	id,
+	code,
 	body,
 }: {
-	id: string;
+	code: string;
 	body: CurrencyType;
-}): Promise<CurrencyType> {
-	const response = CurrencyModel.findByIdAndUpdate(id, body);
+}): Promise<any> {
+	const response = CurrencyModel.findOneAndUpdate({code}, body);
 
 	return response;
 }

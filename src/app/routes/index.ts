@@ -6,7 +6,7 @@ const routes = Router();
 routes.get('/currency/:code', getCurrency);
 routes.get('/currency', getCurrencies);
 routes.post('/currency/', postCurrency);
-routes.delete('/currency/:id', deleteCurrency);
-routes.patch('/currency/:id', patchCurrency);
+routes.delete('/currency/:code', deleteCurrency);
+routes.patch('/currency/:code', patchCurrency);
 
 export default routes;

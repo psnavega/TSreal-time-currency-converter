@@ -6,12 +6,15 @@ import {
 	removeCurrency,
 } from '../dao/CurrencyDao';
 import type {CurrencyType} from '../interfaces/CurrencyType';
+import {getAPI} from '../util/currency';
 
 async function getCurrenciesService(): Promise<CurrencyType[]> {
 	return listCurrencies();
 }
 
 async function getCurrencyService({code}: {code: string}): Promise<CurrencyType> {
+	await updateValues({code});
+
 	return listCurrency({code});
 }
 
@@ -25,20 +28,26 @@ async function postCurrencyService(
 	return saveCurrency({body});
 }
 
-async function deleteCurrencyService({id}: {id: string}): Promise<CurrencyType> {
-	return removeCurrency({id});
+async function deleteCurrencyService({code}: {code: string}): Promise<CurrencyType> {
+	return removeCurrency({code});
 }
 
 async function patchCurrencyService(
 	{
-		id,
+		code,
 		body,
 	}: {
-		id: string;
+		code: string;
 		body: CurrencyType;
 	},
-): Promise<CurrencyType> {
-	return updateCurrency({id, body});
+): Promise<any> {
+	return updateCurrency({code, body});
+}
+
+async function updateValues({code}: {code: string}): Promise<void> {
+	const body = await getAPI({code});
+
+	await patchCurrencyService({code, body});
 }
 
 export {
