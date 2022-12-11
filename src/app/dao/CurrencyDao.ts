@@ -1,5 +1,5 @@
 import CurrencyModel from '../models/currency';
-import type {CurrencyType} from '../interfaces/CurrencyType';
+import type {CurrencyType} from '../types/CurrencyType';
 
 async function listCurrencies(): Promise<CurrencyType[]> {
 	const response: CurrencyType[] = await CurrencyModel.find();

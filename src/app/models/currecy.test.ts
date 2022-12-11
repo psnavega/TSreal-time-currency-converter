@@ -1,5 +1,5 @@
 import currency from './currency';
-import type {CurrencyType} from '../interfaces/CurrencyType';
+import type {CurrencyType} from '../types/CurrencyType';
 
 describe('Test properties', () => {
 	test('if has all properties', () => {

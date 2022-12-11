@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type {Request, Response} from 'express';
-import type {CurrencyType} from '../interfaces/CurrencyType';
+import type {CurrencyType} from '../types/CurrencyType';
 import {client} from '../database/redis';
 import {
 	getCurrenciesService,

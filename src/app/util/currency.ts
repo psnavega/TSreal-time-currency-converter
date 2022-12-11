@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type {CurrencyType, EconomyType} from '../interfaces/CurrencyType';
+import type {CurrencyType, EconomyType} from '../types/CurrencyType';
 
 export async function getAPI({code}: {code: string}): Promise<CurrencyType> {
 	const data = await axios.get(`https://economia.awesomeapi.com.br/json/last/USD-${code}`);
