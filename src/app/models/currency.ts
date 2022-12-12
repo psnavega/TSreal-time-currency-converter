@@ -11,6 +11,7 @@ type CurrencyType = {
 const currencySchema = new Schema({
 	name: {
 		type: String,
+		require: true,
 	},
 	code: {
 		type: String,
@@ -18,10 +19,11 @@ const currencySchema = new Schema({
 	},
 	rate: {
 		type: Number,
+		require: true,
 	},
 	fiat: {
 		type: Boolean,
-
+		require: true,
 	},
 },
 {
