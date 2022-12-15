@@ -1,7 +1,6 @@
 import type {ObjectId} from 'mongoose';
 
 export type CurrencyType = {
-	_id?: ObjectId;
 	name: string;
 	code: string;
 	rate?: number;

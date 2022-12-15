@@ -9,6 +9,7 @@ import {
 	patchCurrencyService,
 	deleteCurrencyService,
 } from '../services/CurrencyService';
+import {currencyValidator} from '../validators/currency';
 
 async function getCurrencies(req: Request, res: Response): Promise<Response> {
 	try {
@@ -65,6 +66,8 @@ async function postCurrency(req: Request, res: Response): Promise<Response> {
 	try {
 		const {body}: {body: CurrencyType} = req;
 
+		await currencyValidator.validate(body);
+
 		await postCurrencyService({body});
 
 		return res.status(201).send({
@@ -84,6 +87,8 @@ async function patchCurrency(req: Request, res: Response): Promise<Response> {
 		const {code} = req.params;
 
 		const {body}: {body: CurrencyType} = req;
+
+		await currencyValidator.validate(body);
 
 		const response = await patchCurrencyService({code, body});
 
