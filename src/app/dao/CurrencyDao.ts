@@ -45,10 +45,12 @@ async function updateCurrencyRate({body}: {body: CurrencyType}): Promise<Currenc
 	try {
 		const {code} = body;
 
-		const register = await CurrencyModel.findOne({code}).exec() as CurrencyType;
+		const register = await CurrencyModel.findOne({code}).exec();
 
 		register.rate = body.rate;
 		register.name = body.name;
+
+		await register.save();
 
 		return register;
 	} catch (e: unknown) {

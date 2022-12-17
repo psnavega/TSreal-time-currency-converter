@@ -25,6 +25,8 @@ export async function conversion({data}: {data: ConversionType}): Promise<Conver
 async function callRateFromDatabase({code}: {code: string}): Promise<number> {
 	const data = await listCurrency({code});
 
+	if(!data) throw new Error(`Code ${code} no exists at database`);
+
 	if (data.fiat) {
 		const dataUpdated = await update({code});
 
