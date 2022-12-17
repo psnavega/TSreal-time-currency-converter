@@ -11,7 +11,7 @@ export default async function connectToRedis(): Promise<void> {
 		console.log('Redis - Connected successfully');
 	} catch (e: unknown) {
 		console.log('Redis - No connected');
-		console.log(`ERROR - ${e}`);
+		throw e;
 	}
 }
 

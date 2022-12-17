@@ -2,20 +2,29 @@ import {
 	listCurrencies,
 	listCurrency,
 	saveCurrency,
-	updateCurrency,
 	removeCurrency,
 } from '../dao/CurrencyDao';
 import type {CurrencyType} from '../types/CurrencyType';
-import {updateValues} from '../util/updateValue';
+import {update} from '../util/currency';
 
 async function getCurrenciesService(): Promise<CurrencyType[]> {
-	return listCurrencies();
+	try {
+		return await listCurrencies();
+	} catch (e: unknown) {
+		console.error(e);
+		throw e;
+	}
 }
 
 async function getCurrencyService({code}: {code: string}): Promise<CurrencyType> {
-	await updateValues({code});
+	try {
+		await update({code});
 
-	return listCurrency({code});
+		return await listCurrency({code});
+	} catch (e: unknown) {
+		console.error(e);
+		throw e;
+	}
 }
 
 async function postCurrencyService(
@@ -25,29 +34,26 @@ async function postCurrencyService(
 	{
 		body: CurrencyType;
 	}): Promise<CurrencyType> {
-	return saveCurrency({body});
+	try {
+		return await saveCurrency({body});
+	} catch (e: unknown) {
+		console.error(e);
+		throw e;
+	}
 }
 
 async function deleteCurrencyService({code}: {code: string}): Promise<CurrencyType> {
-	return removeCurrency({code});
-}
-
-async function patchCurrencyService(
-	{
-		code,
-		body,
-	}: {
-		code: string;
-		body: CurrencyType;
-	},
-): Promise<any> {
-	return updateCurrency({code, body});
+	try {
+		return await removeCurrency({code});
+	} catch (e: unknown) {
+		console.error(e);
+		throw e;
+	}
 }
 
 export {
 	getCurrenciesService,
 	getCurrencyService,
 	postCurrencyService,
-	patchCurrencyService,
 	deleteCurrencyService,
 };

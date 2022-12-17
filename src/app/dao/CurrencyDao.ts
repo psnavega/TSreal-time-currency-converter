@@ -2,52 +2,76 @@ import CurrencyModel from '../models/currency';
 import type {CurrencyType} from '../types/CurrencyType';
 
 async function listCurrencies(): Promise<CurrencyType[]> {
-	const response: CurrencyType[] = await CurrencyModel.find();
+	try {
+		const response: CurrencyType[] = await CurrencyModel.find();
 
-	return response;
+		return response;
+	} catch (e: unknown) {
+		console.error(e);
+		throw e;
+	}
 }
 
 async function listCurrency({code}: {code: string}): Promise<CurrencyType> {
-	const response: CurrencyType = await CurrencyModel.findOne({code});
+	try {
+		const response: CurrencyType = await CurrencyModel.findOne({code}).exec();
 
-	return response;
+		return response;
+	} catch (e: unknown) {
+		console.error(e);
+		throw e;
+	}
 }
 
 async function saveCurrency({body}: {body: CurrencyType}): Promise<CurrencyType> {
-	const newData = new CurrencyModel({
-		name: body.name,
-		code: body.code,
-		rate: body.rate,
-		fiat: body.fiat,
-	});
+	try {
+		const newData = new CurrencyModel({
+			name: body.name,
+			code: body.code,
+			rate: body.rate,
+			fiat: body.fiat,
+		});
 
-	const response = await newData.save();
+		const response = await newData.save();
 
-	return response;
+		return response;
+	} catch (e: unknown) {
+		console.error(e);
+		throw e;
+	}
+}
+
+async function updateCurrencyRate({body}: {body: CurrencyType}): Promise<CurrencyType> {
+	try {
+		const {code} = body;
+
+		const register = await CurrencyModel.findOne({code}).exec() as CurrencyType;
+
+		register.rate = body.rate;
+		register.name = body.name;
+
+		return register;
+	} catch (e: unknown) {
+		console.error(e);
+		throw e;
+	}
 }
 
 async function removeCurrency({code}: {code: string}): Promise<CurrencyType> {
-	const response = CurrencyModel.findOneAndDelete({code});
+	try {
+		const response = await CurrencyModel.findOneAndDelete({code});
 
-	return response;
-}
-
-async function updateCurrency({
-	code,
-	body,
-}: {
-	code: string;
-	body: CurrencyType;
-}): Promise<any> {
-	const response = CurrencyModel.findOneAndUpdate({code}, body);
-
-	return response;
+		return response;
+	} catch (e: unknown) {
+		console.error(e);
+		throw e;
+	}
 }
 
 export {
 	listCurrencies,
 	listCurrency,
 	removeCurrency,
-	updateCurrency,
 	saveCurrency,
+	updateCurrencyRate,
 };

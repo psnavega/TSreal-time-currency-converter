@@ -1,23 +1,32 @@
 import axios from 'axios';
 import type {CurrencyType, EconomyType} from '../types/CurrencyType';
+import {updateCurrencyRate} from '../dao/CurrencyDao';
 
-export async function getAPI({code}: {code: string}): Promise<CurrencyType> {
-	const data = await axios.get(`https://economia.awesomeapi.com.br/json/last/USD-${code}`);
+export async function update({code}: {code: string}): Promise<CurrencyType> {
+	try {
+		const data = await axios.get(`https://economia.awesomeapi.com.br/json/last/USD-${code}`);
 
-	const response: CurrencyType = mountType(data.data[`USD${code}`]);
+		const response = await mountType(data.data[`USD${code}`]);
 
-	return response;
+		return response;
+	} catch (e: unknown) {
+		console.error(e);
+		throw e;
+	}
 }
 
-function mountType(data: EconomyType): any {
+async function mountType(data: EconomyType): Promise<CurrencyType> {
 	const nameFormated = data.name.split('/')[1];
 
-	const response: CurrencyType = {
+	const body: CurrencyType = {
 		name: nameFormated,
 		code: data.codein,
 		rate: Number(data.bid),
 		fiat: true,
 	};
 
+	const response = await updateCurrencyRate({body});
+
 	return response;
 }
+

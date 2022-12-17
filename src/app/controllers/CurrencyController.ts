@@ -6,7 +6,6 @@ import {
 	getCurrenciesService,
 	getCurrencyService,
 	postCurrencyService,
-	patchCurrencyService,
 	deleteCurrencyService,
 } from '../services/CurrencyService';
 import {currencyValidator} from '../validators/currency';
@@ -82,32 +81,6 @@ async function postCurrency(req: Request, res: Response): Promise<Response> {
 	}
 }
 
-async function patchCurrency(req: Request, res: Response): Promise<Response> {
-	try {
-		const {code} = req.params;
-
-		const {body}: {body: CurrencyType} = req;
-
-		await currencyValidator.validate(body);
-
-		const response = await patchCurrencyService({code, body});
-
-		if (!response) {
-			return res.status(400).send({message: 'No register found to update'});
-		}
-
-		return res.status(200).send({
-			message: 'Update successfully',
-			body,
-		});
-	} catch (e: unknown) {
-		return res.status(409).send({
-			message: 'Error',
-			description: e,
-		});
-	}
-}
-
 async function deleteCurrency(req: Request, res: Response): Promise<Response> {
 	try {
 		const {code} = req.params;
@@ -131,6 +104,5 @@ export {
 	getCurrencies,
 	getCurrency,
 	postCurrency,
-	patchCurrency,
 	deleteCurrency,
 };
