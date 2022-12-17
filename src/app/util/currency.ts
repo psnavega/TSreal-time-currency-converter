@@ -1,10 +1,13 @@
 import axios from 'axios';
 import type {CurrencyType, EconomyType} from '../types/CurrencyType';
 import {updateCurrencyRate} from '../dao/CurrencyDao';
+import { RequestError } from '../errors/RequestError';
 
 export async function update({code}: {code: string}): Promise<CurrencyType> {
 	try {
 		const data = await axios.get(`https://economia.awesomeapi.com.br/json/last/USD-${code}`);
+
+		if(!data) throw new RequestError('Invalid currency', 409);
 
 		const response = await mountType(data.data[`USD${code}`]);
 

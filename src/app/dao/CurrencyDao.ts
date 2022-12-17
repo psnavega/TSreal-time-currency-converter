@@ -1,5 +1,6 @@
 import CurrencyModel from '../models/currency';
 import type {CurrencyType} from '../types/CurrencyType';
+import {RequestError} from '../errors/RequestError';
 
 async function listCurrencies(): Promise<CurrencyType[]> {
 	try {
@@ -7,19 +8,19 @@ async function listCurrencies(): Promise<CurrencyType[]> {
 
 		return response;
 	} catch (e: unknown) {
-		console.error(e);
-		throw e;
+		throw new RequestError();
 	}
 }
 
 async function listCurrency({code}: {code: string}): Promise<CurrencyType> {
 	try {
-		const response: CurrencyType = await CurrencyModel.findOne({code}).exec();
-
+		const response: CurrencyType = await CurrencyModel.findOne({code});
+		
+		if(!response) return;
+		
 		return response;
 	} catch (e: unknown) {
-		console.error(e);
-		throw e;
+		throw new RequestError();
 	}
 }
 
@@ -36,8 +37,7 @@ async function saveCurrency({body}: {body: CurrencyType}): Promise<CurrencyType>
 
 		return response;
 	} catch (e: unknown) {
-		console.error(e);
-		throw e;
+		throw new RequestError();
 	}
 }
 
@@ -54,8 +54,7 @@ async function updateCurrencyRate({body}: {body: CurrencyType}): Promise<Currenc
 
 		return register;
 	} catch (e: unknown) {
-		console.error(e);
-		throw e;
+		throw new RequestError();
 	}
 }
 
@@ -65,8 +64,7 @@ async function removeCurrency({code}: {code: string}): Promise<CurrencyType> {
 
 		return response;
 	} catch (e: unknown) {
-		console.error(e);
-		throw e;
+		throw new RequestError();
 	}
 }
 

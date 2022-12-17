@@ -4,6 +4,7 @@ import {
 	saveCurrency,
 	removeCurrency,
 } from '../dao/CurrencyDao';
+import { RequestError } from '../errors/RequestError';
 import type {CurrencyType} from '../types/CurrencyType';
 import {update} from '../util/currency';
 
@@ -12,7 +13,7 @@ async function getCurrenciesService(): Promise<CurrencyType[]> {
 		return await listCurrencies();
 	} catch (e: unknown) {
 		console.error(e);
-		throw e;
+		throw e as RequestError;
 	}
 }
 
@@ -23,7 +24,7 @@ async function getCurrencyService({code}: {code: string}): Promise<CurrencyType>
 		return await listCurrency({code});
 	} catch (e: unknown) {
 		console.error(e);
-		throw e;
+		throw e as RequestError;
 	}
 }
 
@@ -38,7 +39,7 @@ async function postCurrencyService(
 		return await saveCurrency({body});
 	} catch (e: unknown) {
 		console.error(e);
-		throw e;
+		throw e as RequestError;
 	}
 }
 
@@ -47,7 +48,7 @@ async function deleteCurrencyService({code}: {code: string}): Promise<CurrencyTy
 		return await removeCurrency({code});
 	} catch (e: unknown) {
 		console.error(e);
-		throw e;
+		throw e as RequestError;
 	}
 }
 

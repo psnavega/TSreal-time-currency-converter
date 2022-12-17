@@ -25,8 +25,8 @@ export async function conversionCurrency(req: Request, res: Response): Promise<a
 		}
 
 		res.status(200).send(response);
-	} catch (e: unknown) {
+	} catch (e: any) {
 		console.error(e);
-		throw e;
+		res.status(e.statusCode).send(e.message);
 	} 
 }
