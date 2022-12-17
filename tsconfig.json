@@ -12,6 +12,6 @@
     "strictNullChecks": false,                           /* When type checking, take into account 'null' and 'undefined'. */
     "skipLibCheck": true,
     "baseUrl": ".",
-    "typeRoots": ["node_modules/yup"]
+    "typeRoots": ["node_modules/yup", "node_modules/@types"]
   }
 } 
