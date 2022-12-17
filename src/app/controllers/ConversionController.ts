@@ -2,10 +2,13 @@
 import {conversion} from '../services/ConversionService';
 import type {Request, Response} from 'express';
 import {client} from '../database/redis';
+import {conversionValidator} from '../validators/conversion';
 
 export async function conversionCurrency(req: Request, res: Response): Promise<any> {
 	try {
 		const {query} = req;
+
+		await conversionValidator.validate(query);
 
 		const data = {
 			from: query.from as string,
@@ -26,7 +29,8 @@ export async function conversionCurrency(req: Request, res: Response): Promise<a
 
 		res.status(200).send(response);
 	} catch (e: any) {
-		console.error(e);
-		res.status(e.statusCode).send(e.message);
+		const statusCode =  e.statusCode|| 409;
+
+		res.status(statusCode).send({error: e.message})
 	} 
 }

@@ -9,7 +9,6 @@ import {
 	deleteCurrencyService,
 } from '../services/CurrencyService';
 import {currencyValidator} from '../validators/currency';
-import { RequestError } from '../errors/RequestError';
 
 async function getCurrencies(req: Request, res: Response): Promise<Response> {
 	try {
@@ -26,10 +25,9 @@ async function getCurrencies(req: Request, res: Response): Promise<Response> {
 
 		return res.status(200).send(response);
 	} catch (e: any) {
-		return res.status(409).send({
-			message: 'Error',
-			description: e,
-		});
+		const statusCode =  e.statusCode || 409;
+
+		res.status(statusCode).send({error: e.message})
 	}
 }
 
@@ -55,9 +53,9 @@ async function getCurrency(req: Request, res: Response): Promise<Response> {
 
 		return res.status(200).send(response);
 	} catch (e: any) {
-		const statusCode =  e.statusCode;
+		const statusCode =  e.statusCode || 409;
 
-		res.status(statusCode).send({ error: e.message})
+		res.status(statusCode).send({error: e.message})
 	}
 }
 
@@ -74,9 +72,9 @@ async function postCurrency(req: Request, res: Response): Promise<Response> {
 			body,
 		});
 	} catch (e: any) {
-		const statusCode =  e.statusCode;
+		const statusCode =  e.statusCode|| 409;
 
-		res.status(statusCode).send({ error: e.message})
+		res.status(statusCode).send({error: e.message})
 	}
 }
 
@@ -92,9 +90,9 @@ async function deleteCurrency(req: Request, res: Response): Promise<Response> {
 
 		return res.status(200).send({message: 'Deleted successfully', response});
 	} catch (e: any) {
-		const statusCode =  e.statusCode;
+		const statusCode =  e.statusCode || 409;
 
-		res.status(statusCode).send({ error: e.message})
+		res.status(statusCode).send({error: e.message})
 	}
 }
 
