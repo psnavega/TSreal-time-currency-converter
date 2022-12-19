@@ -5,7 +5,7 @@ import {
     removeCurrency,
 } from '../../../src/app/dao/CurrencyDao';
 
-jest.mock('../../src/app/dao/CurrencyDao');
+jest.mock('../../../src/app/dao/CurrencyDao');
 
 const mockCurrency = {
     name: 'PokeCoin',
