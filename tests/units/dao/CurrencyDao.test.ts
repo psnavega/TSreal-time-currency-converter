@@ -4,15 +4,16 @@ import {
     listCurrency,
     removeCurrency,
 } from '../../../src/app/dao/CurrencyDao';
-
+import {
+    mockCurrency
+} from '../../mocks/allMocks';
+ 
 jest.mock('../../../src/app/dao/CurrencyDao');
 
-const mockCurrency = {
-    name: 'PokeCoin',
-    code: 'PKC',
-    rate: 123,
-    fiat: false,
-}
+
+afterEach(() => {
+    jest.clearAllMocks();
+});
 
 describe('Test save a currency', () => {
     const saveCurrencyMock = saveCurrency as jest.Mock;
@@ -29,7 +30,7 @@ describe('Test save a currency', () => {
     });
 
     it('Should simulate save a currencie at database', async () => {
-        const response = await saveCurrency({body: mockCurrency});
+        const response = await saveCurrencyMock({body: mockCurrency});
 
         await expect(saveCurrency).toHaveBeenCalled();
         await expect(response).toHaveProperty('name');
