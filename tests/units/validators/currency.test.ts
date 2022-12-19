@@ -1,5 +1,5 @@
 import { ValidationError } from 'yup';
-import {currencyValidator} from '../../src/app/validators/currency'
+import {currencyValidator} from '../../../src/app/validators/currency'
 
 describe('Test currency validators', () => {
 	const currencyMock = {

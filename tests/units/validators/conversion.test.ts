@@ -1,5 +1,5 @@
 import { ValidationError } from 'yup';
-import {conversionValidator} from '../../src/app/validators/conversion'
+import {conversionValidator} from '../../../src/app/validators/conversion'
 
 describe('Test conversion validator', () => {
     const conversionMocker = {
