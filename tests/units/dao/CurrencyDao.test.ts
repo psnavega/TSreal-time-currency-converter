@@ -1,14 +1,22 @@
+import { CurrencyType } from 'src/app/types/CurrencyType';
 import {
     saveCurrency,
     listCurrencies,
     listCurrency,
     removeCurrency,
+    updateCurrencyRate,
 } from '../../../src/app/dao/CurrencyDao';
 import {
     mockCurrency
 } from '../../mocks/allMocks';
  
 jest.mock('../../../src/app/dao/CurrencyDao');
+
+const listCurrencyMock = listCurrency as jest.Mock;
+
+listCurrencyMock.mockImplementation(() => {
+    return Promise.resolve({});
+});
 
 
 afterEach(() => {
@@ -54,14 +62,8 @@ describe('Test list all currencies', () => {
         await expect(response).toStrictEqual([{}]);
     });
 });
-
+// newMockToThrow
 describe('Test list one currency', () => {
-    const listCurrencyMock = listCurrency as jest.Mock;
-
-    listCurrencyMock.mockImplementation(() => {
-        return Promise.resolve({});
-    });
-
     it('Should simulate one currency from database', async () => {
         const response = await listCurrencyMock();
 
@@ -70,13 +72,13 @@ describe('Test list one currency', () => {
     });
 });
 
-describe('Test remove one currency', () => {
+describe('Test list one currency', () => {
     const listCurrenciesMock = listCurrencies as jest.Mock;
 
     listCurrenciesMock.mockImplementation( () => {
         return Promise.resolve([{}]);
     });
-    it('Should simulate remove one currency from database', async () => {
+    it('Should list all currencies from database', async () => {
         const response = await listCurrenciesMock();
 
         await expect(listCurrenciesMock).toHaveBeenCalled();
@@ -105,6 +107,37 @@ describe('Test remove currency', () => {
         await expect(response).toHaveProperty('code');
         await expect(response).toHaveProperty('fiat');
         await expect(response).toHaveProperty('name');
+        await expect(response).toHaveProperty('createdAt');
+        await expect(response).toHaveProperty('updatedAt');
+    });
+});
+
+describe('Test update currency', () => {
+    const updateCurrencyRateMock = updateCurrencyRate as jest.Mock;
+
+    updateCurrencyRateMock.mockImplementation(async ({body}: {body: CurrencyType}) => {
+        const code = mockCurrency.code;
+
+        const response = await listCurrencyMock(code);
+
+        return Promise.resolve({
+            ...mockCurrency,
+                _id: '1111',
+                createdAt: new Date(),
+                updatedAt: new Date(),
+        })
+    });
+    it('Should update one currency from database', async () => {
+
+        const response = await updateCurrencyRateMock({code: mockCurrency.code});
+
+        await expect(updateCurrencyRate).toHaveBeenCalled();
+        await expect(listCurrency).toHaveBeenCalledTimes(1);
+        await expect(response).toHaveProperty('_id');
+        await expect(response).toHaveProperty('code');
+        await expect(response).toHaveProperty('name');
+        await expect(response).toHaveProperty('fiat');
+        await expect(response).toHaveProperty('rate');
         await expect(response).toHaveProperty('createdAt');
         await expect(response).toHaveProperty('updatedAt');
     });
