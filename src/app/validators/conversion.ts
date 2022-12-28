@@ -1,7 +1,7 @@
 
 import type {SchemaOf} from 'yup';
 import * as yup from 'yup';
-import type {ConversionType, CurrencyType} from '../types/CurrencyType';
+import type {ConversionType, CurrencyType} from '../types/types';
 
 const conversionValidator: SchemaOf<ConversionType> = yup.object().shape({
 	to: yup

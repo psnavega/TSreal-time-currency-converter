@@ -10,7 +10,7 @@ import {
     removeCurrency,
     updateCurrencyRate
 } from "../../../src/app/dao/CurrencyDao";
-import { CurrencyType } from '../../../src/app/types/CurrencyType';
+import { CurrencyType } from '../../../src/app/types/types';
 
 jest.mock('../../../src/app/dao/CurrencyDao');
 

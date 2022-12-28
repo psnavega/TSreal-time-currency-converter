@@ -2,7 +2,7 @@ import {
 	listCurrency,
 } from '../dao/CurrencyDao';
 import { RequestError } from '../errors/RequestError';
-import type {ConversionType} from '../types/CurrencyType';
+import type {ConversionType} from '../types/types';
 import {update} from '../util/currency';
 
 export async function conversion({data}: {data: ConversionType}): Promise<ConversionType> {

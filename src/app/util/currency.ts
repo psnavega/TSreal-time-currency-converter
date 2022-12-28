@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type {CurrencyType, EconomyType} from '../types/CurrencyType';
+import type {CurrencyType, EconomyType} from '../types/types';
 import {updateCurrencyRate} from '../dao/CurrencyDao';
 import { RequestError } from '../errors/RequestError';
 

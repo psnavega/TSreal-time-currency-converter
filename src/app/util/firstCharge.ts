@@ -3,7 +3,7 @@ import {
 } from '../dao/CurrencyDao';
 import CurrencyModel from '../models/currency';
 import axios from 'axios';
-import { CurrencyType, EconomyType } from '../types/CurrencyType';
+import { CurrencyType, EconomyType } from '../types/types';
 
 
 export async function firstCharge(): Promise<void> {

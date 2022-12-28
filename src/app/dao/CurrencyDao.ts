@@ -1,5 +1,5 @@
 import CurrencyModel from '../models/currency';
-import type {CurrencyType} from '../types/CurrencyType';
+import type {CurrencyType} from '../types/types';
 import {RequestError} from '../errors/RequestError';
 
 async function listCurrencies(): Promise<CurrencyType[]> {

@@ -5,7 +5,7 @@ import {
 	removeCurrency,
 } from '../dao/CurrencyDao';
 import { RequestError } from '../errors/RequestError';
-import type {CurrencyType} from '../types/CurrencyType';
+import type {CurrencyType} from '../types/types';
 import {update} from '../util/currency';
 
 async function getCurrenciesService(): Promise<CurrencyType[]> {

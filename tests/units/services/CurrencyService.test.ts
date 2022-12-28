@@ -8,7 +8,7 @@ import {
 } from '../../../src/app/services/CurrencyService';
 import { listCurrencies, listCurrency, removeCurrency, saveCurrency } from '../../../src/app/dao/CurrencyDao';
 import { update } from '../../../src/app/util/currency';
-import { CurrencyType } from 'src/app/types/CurrencyType';
+import { CurrencyType } from 'src/app/types/types';
 
 jest.mock('../../../src/app/services/CurrencyService');
 jest.mock('../../../src/app/dao/CurrencyDao');
