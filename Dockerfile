@@ -1,11 +1,8 @@
-FROM node:14-alpine
+FROM node:14
 
-WORKDIR /src
-
-ADD package.json /src 
-
-RUN yarn install 
-
-ADD . /src 
-
-CMD yarn dev
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package*.json /usr/src/app/
+RUN npm install
+EXPOSE 3000
+CMD [ "yarn start" ]

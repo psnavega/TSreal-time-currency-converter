@@ -23,8 +23,8 @@ services:
           MONGO_URL: mongodb
           PORT: 4000
       volumes:
-          - .:/src
-          - nodemodules:/node_modules
+        - .:/usr/src/app
+        - /usr/src/app/node_modules
       links:
           - mongodb
       depends_on: 
