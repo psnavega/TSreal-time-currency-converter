@@ -8,4 +8,4 @@ RUN yarn install
 
 ADD . /src 
 
-CMD npm dev
+CMD yarn dev
